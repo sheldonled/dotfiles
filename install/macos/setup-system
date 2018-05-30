@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+source "$(dirname $0)/global"
+system_config_path="${INSTALLER}/system"
+
+for s in $(ls -1 ${system_config_path})
+do
+  bash ${system_config_path}/$s
+done
+
+# Kill affected applications
+for app in Finder Dock SystemUIServer
+do
+  killall "$app" >/dev/null 2>&1
+done

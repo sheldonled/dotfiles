@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# System
+alias ls="ls -G -h"
+alias ll="ls -l"
+alias la="ls -lA"
+alias lah="ls -lah"
+
+alias ..="cd .."
+alias ...="cd ../.."
+
+# Searching
+alias grep="grep --color=auto -i"
+
+# Process
+alias ctop="htop -s PERCENT_CPU"
+alias mtop="htop -s PERCENT_MEM"
+
+#Local Aliases, to be fed by subconfig
+local_aliases="$(dirname $0)/local_aliases"
+
+if [ -f $local_aliases ]; then
+  source $local_aliases
+fi

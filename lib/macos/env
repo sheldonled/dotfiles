@@ -1,0 +1,12 @@
+export HOMEBREW_PREFIX="$(brew --prefix 2>/dev/null)"
+export HOMEBREW_NO_ANALYTICS=1
+
+
+# my bin, and project bin
+export PATH="./bin:${DOTFILES}/bin:${PATH}"
+
+# improve ls colors
+export CLICOLOR=1
+
+source ${DOTFILES}/lib/macos/aliases
+source ${DOTFILES}/lib/macos/git

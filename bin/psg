@@ -1,0 +1,4 @@
+
+#!/usr/bin/env bash
+
+ps aux | grep -v "psg" | grep -v "grep" | grep $@

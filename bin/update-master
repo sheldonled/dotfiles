@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ "$1" == "-q" ] || [ "$1" == "--quiet" ]
+then
+  exec &>/dev/null
+fi
+
+branch=$(git symbolic-ref --short HEAD)
+trap "git checkout ${branch} &>/dev/null" EXIT HUP INT QUIT TERM
+
+git checkout master &>/dev/null
+git fetch --prune && git pull

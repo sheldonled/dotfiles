@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+export DOTFILES=${HOME}/.dotfiles
+export HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-/usr/local}
+
+# Fix PATH
+if [ -x /usr/libexec/path_helper ]
+then
+  PATH=""
+  eval `/usr/libexec/path_helper -s`
+fi
+
+export DOTFILES=$HOME/.dotfiles
+
+# My env customization env
+source "$DOTFILES/lib/macos/env"

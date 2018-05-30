@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+source "$(dirname $0)/global"
+
+sudo -v
+
+pushd ${HOME} > /dev/null && trap 'popd > /dev/null' EXIT HUP INT QUIT TERM
+
+${INSTALLER}/setup-brew
+${INSTALLER}/setup-shell
+${INSTALLER}/setup-rcfiles
+source ${DOTFILES}/lib/macos/env
+
+# Customize OSX
+${INSTALLER}/setup-system
+${INSTALLER}/setup-sudo-fingerprint
+
+exit 0
