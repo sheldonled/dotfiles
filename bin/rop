@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# very intuitive name: rop -> running on port
+PORT="$1"
+
+if [ -z "$PORT" ]; then
+  echo "must specify the port number"
+  exit 0;
+fi
+
+sudo lsof -i tcp:$PORT
