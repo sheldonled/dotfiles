@@ -2,6 +2,8 @@
   name = Sheldon Led
   email = sheldonled@gmail.com
 [core]
+  repositoryformatversion = 0
+  filemode = false
   excludesfile = ~/.gitignore
   whitespace = trailing-space,space-before-tab,cr-at-eol
   ignorecase = false
