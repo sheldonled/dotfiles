@@ -1,0 +1,8 @@
+# my bin, and project bin
+export PATH="./bin:${DOTFILES}/bin:${PATH}"
+
+# improve ls colors
+export CLICOLOR=1
+
+source ${DOTFILES}/lib/linux/aliases
+source ${DOTFILES}/lib/linux/git

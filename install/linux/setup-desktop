@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+printf "\nDesktop setup chosen\n";
+
+printf "\n- installing code\n";
+# Adding VS Code to source lists
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+printf "\n- installing things with snap\n";
+# Installing things with snap
+	apps=(
+		spotify
+		postman
+		dbeaver-ce
+	)
+sudo snap install "${apps[@]}"
+sudo snap refresh
+
+sudo apt update
+
+printf "\n- installing other things with apt\n";
+# Installing other things
+	apps=(
+		virtualbox
+		code
+		vlc
+		zsh
+		fonts-powerline
+	)
+sudo apt install "${apps[@]}"
+
+# Setting Code as default text editor
+sudo update-alternatives --set editor /usr/bin/code
+
+printf "\n- setting up shell\n";
+$(dirname $0)/setup-shell;
+
+printf "\n- setting up adb\n";
+$(dirname $0)/setup-adb;
+
+printf "\n- setting up rcfiles\n";
+$(dirname $0)/setup-rcfiles;
+
+printf "\n- setting up system\n";
+$(dirname $0)/setup-system;

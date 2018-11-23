@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-osascript -e "display notification \"$*\" with title \"Notifying\""
+if [ $(uname) = 'Darwin' ]; then
+  osascript -e "display notification \"$*\" with title \"Notifying\""
+else
+  printf "\nNot available for linux yet\n"
+fi

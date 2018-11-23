@@ -1,3 +1,84 @@
 #!/usr/bin/env bash
 
-echo "nothing here yet";
+echo "Which type of linux?";
+echo "1) Server";
+echo "2) Desktop";
+
+read linuxSetup;
+
+############################################################################
+# Common Setup
+############################################################################
+printf "\n...installing common\n";
+
+# Make sure we’re using the latest repositories
+sudo apt update
+sudo apt upgrade
+sudo apt dist-upgrade
+
+printf "\n- installing nodejs\n";
+
+# Installing nodejs (Using Ubuntu)
+# https://github.com/nodesource/distributions/blob/master/README.md
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt install -y nodejs
+
+printf "\n- installing yarn\n";
+# Installing yarn
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+
+printf "\n- installing docker\n";
+# Installing Docker
+# https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository
+sudo apt install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository \
+  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) \
+  stable"
+
+sudo apt update
+sudo apt install docker-ce
+
+printf "\n- installing docker-compose\n";
+
+# Installing Docker-compose
+# https://docs.docker.com/compose/install/#install-compose
+curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+printf "\n- installing things\n";
+# Installing other things
+	apps=(
+    wget
+    curl
+    htop
+    vim
+		git
+		python
+		python3
+		ruby
+    default-jdk
+    net-tools
+	)
+sudo apt install "${apps[@]}"
+
+############################################################################
+# Server/Desktop Setup
+############################################################################
+
+if [ $linuxSetup = '1' ]; then
+  $(dirname $0)/setup-server;
+else
+  $(dirname $0)/setup-desktop;
+fi
+
+exit 0;

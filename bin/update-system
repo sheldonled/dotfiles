@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+if [ $(uname) = 'Darwin' ]; then
+  sudo softwareupdate -i -a
+  $(dirname $0)/upgrade-brew
+  npm install npm -g
+  npm update -g
+
+else #Linux
+  sudo apt-get update
+  sudo apt-get upgrade
+  sudo apt-get dist-upgrade
+  npm update -g
+
+fi
+
+exit 0;

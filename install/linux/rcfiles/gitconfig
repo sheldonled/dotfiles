@@ -1,0 +1,41 @@
+[user]
+  name = Sheldon Led
+  email = sheldonled@gmail.com
+[core]
+  repositoryformatversion = 0
+  filemode = false
+  excludesfile = ~/.gitignore
+  whitespace = trailing-space,space-before-tab,cr-at-eol
+  ignorecase = false
+[push]
+  default = current
+[pull]
+  rebase = true
+[grep]
+  extendRegexp = true
+  lineNumber = true
+[help]
+  autocorrect = 1
+[color]
+  branch = true
+  diff = auto
+  interactive = auto
+  status = auto
+  grep = auto
+  ui = auto
+[color "diff"]
+  old = red dim
+  new = green bold
+[merge]
+  ff = false
+  conflictstyle = diff3
+[log]
+  date = format-local:"%F %R"
+[pretty]
+  log = %C(red dim)%h %C(green)%cd %C(yellow)%an %C(reset)%C(white)%s %C(blue)%d
+[alias]
+  lp = log --pretty=format:'%C(red dim)%h%Creset %C(yellow dim)%an%C(green) %cd%C(reset)%C(white) %s%Creset -%C(blue dim)%d%Creset'
+[tag]
+  sort = creatordate
+[rerere]
+  enabled = true

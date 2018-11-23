@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+printf "\nServer setup chosen, nothing to do aymore\n";
+printf "\n- setting up rcfiles\n";
+#$(dirname $0)/setup-rcfiles;
+# check what's in .bashrc first
