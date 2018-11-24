@@ -10,15 +10,12 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode s
 
 printf "\n- installing things with snap\n";
 # Installing things with snap
-	apps=(
-		spotify
-		postman
-		dbeaver-ce
-	)
-sudo snap install "${apps[@]}"
+sudo snap install spotify
+sudo snap install postman
+sudo snap install --edge dbeaver-ce
 sudo snap refresh
 
-sudo apt update
+sudo apt-get update
 
 printf "\n- installing other things with apt\n";
 # Installing other things
@@ -37,8 +34,8 @@ sudo update-alternatives --set editor /usr/bin/code
 printf "\n- setting up shell\n";
 $(dirname $0)/setup-shell;
 
-printf "\n- setting up adb\n";
-$(dirname $0)/setup-adb;
+#printf "\n- setting up adb\n";
+#$(dirname $0)/setup-adb;
 
 printf "\n- setting up rcfiles\n";
 $(dirname $0)/setup-rcfiles;

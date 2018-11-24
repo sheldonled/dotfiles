@@ -12,16 +12,16 @@ read linuxSetup;
 printf "\n...installing common\n";
 
 # Make sure we’re using the latest repositories
-sudo apt update
-sudo apt upgrade
-sudo apt dist-upgrade
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
 
 printf "\n- installing nodejs\n";
 
 # Installing nodejs (Using Ubuntu)
 # https://github.com/nodesource/distributions/blob/master/README.md
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-sudo apt install -y nodejs
+sudo apt-get install -y nodejs
 
 printf "\n- installing yarn\n";
 # Installing yarn
@@ -32,7 +32,7 @@ sudo apt-get update && sudo apt-get install yarn
 printf "\n- installing docker\n";
 # Installing Docker
 # https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository
-sudo apt install \
+sudo apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -42,11 +42,11 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 sudo add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) \
-  stable"
+  bionic \
+  stable" #bionic, instead of: $(lsb_release -cs)
 
-sudo apt update
-sudo apt install docker-ce
+sudo apt-get update
+sudo apt-get install docker-ce
 
 printf "\n- installing docker-compose\n";
 
@@ -69,7 +69,7 @@ printf "\n- installing things\n";
     default-jdk
     net-tools
 	)
-sudo apt install "${apps[@]}"
+sudo apt-get install "${apps[@]}"
 
 ############################################################################
 # Server/Desktop Setup
