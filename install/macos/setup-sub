@@ -1,33 +1,10 @@
 #!/usr/bin/env bash
 
-source "$(dirname $0)/global"
-subconfig_path=/etc/paths.d/subconfig;
-local_aliases_path=${DOTFILES}/lib/macos/local_aliases;
-
-
-echo "" | sudo tee $subconfig_path;
-echo "" | tee $local_aliases_path;
-
 for f in ${DOTFILES}/subconfig/*
 do
-  for subsetup in  $(ls -1 ${f})
-  do
-    if [ "$subsetup" != 'macos' ]; then
-      continue
-    fi
-    for config in  $(ls -1 "$f/$subsetup")
-    do
-      if [ "$config" = 'bin' ]; then
-        echo "$f/$subsetup/$config" | sudo tee -a $subconfig_path &>/dev/null;
-      fi
-      if [ "$config" = 'lib' ]; then
-        for libsetup in $(ls -1 ${f}/${subsetup}/${config})
-        do
-          if [ "$libsetup" = 'aliases' ]; then
-            cat ${f}/${subsetup}/${config}/${libsetup} | tee -a $local_aliases_path &>/dev/null;
-          fi
-        done
-      fi
-    done
-  done
+  setup_file="$f/install/setup"
+  if [ ! -f $setup_file ]; then
+    continue
+  fi
+  $setup_file
 done
