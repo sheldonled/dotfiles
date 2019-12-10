@@ -21,13 +21,6 @@ alias grep="grep --color=auto -i"
 alias ctop="htop -s PERCENT_CPU"
 alias mtop="htop -s PERCENT_MEM"
 
-#Local Aliases, to be fed by subconfig
-local_aliases="$(dirname $0)/local_aliases"
-
-if [ -f $local_aliases ]; then
-  source $local_aliases
-fi
-
 # Functions
 
 # Make a directory and cd into it

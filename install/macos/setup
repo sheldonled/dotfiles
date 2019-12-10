@@ -10,6 +10,7 @@ ${INSTALLER}/setup-brew
 ${INSTALLER}/setup-fonts
 ${INSTALLER}/setup-shell
 ${INSTALLER}/setup-rcfiles
+${INSTALLER}/setup-ssh
 ${INSTALLER}/setup-sub
 source ${DOTFILES}/lib/macos/env
 

@@ -2,8 +2,14 @@
 
 source "$(dirname $0)/global"
 
+if [ -z $1 ]; then
+  rcfiles_dir=${RCFILES_PATH}
+else
+  rcfiles_dir=$1
+fi
+
 # Create linked files
-for f in ${INSTALLER}/rcfiles/*
+for f in ${rcfiles_dir}/*
 do
   target=${HOME}/.${f##*/}
   if [ -L ${target} ]
@@ -15,8 +21,3 @@ do
   fi
   ln -sf ${f} $target
 done
-
-# ssh
-mkdir -p ${HOME}/.ssh
-cp ${INSTALLER}/ssh_config ${HOME}/.ssh/config
-chmod -R 700 ${HOME}/.ssh

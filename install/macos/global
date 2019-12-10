@@ -2,3 +2,4 @@
 
 export DOTFILES="${HOME}/.dotfiles";
 export INSTALLER="${DOTFILES}/install/macos";
+export RCFILES_PATH="${DOTFILES}/lib/macos/rcfiles";
