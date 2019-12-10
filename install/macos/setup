@@ -7,6 +7,7 @@ sudo -v
 pushd ${HOME} > /dev/null && trap 'popd > /dev/null' EXIT HUP INT QUIT TERM
 
 ${INSTALLER}/setup-brew
+${INSTALLER}/setup-fonts
 ${INSTALLER}/setup-shell
 ${INSTALLER}/setup-rcfiles
 ${INSTALLER}/setup-sub
