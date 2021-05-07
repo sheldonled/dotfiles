@@ -14,18 +14,12 @@ alias .....="cd ../../../.."
 alias week="date +%V"
 alias count="ls -l | wc -l"
 
+alias reload!='. ~/.zshrc'
+
 # Searching
-alias grep="grep --color=auto -i"
+alias grep="grep -v 'grep --color=auto -i' | grep --color=auto -i"
+alias psg="ps aux | grep"
 
 # Process
 alias ctop="htop -s PERCENT_CPU"
 alias mtop="htop -s PERCENT_MEM"
-
-# Functions
-
-# Make a directory and cd into it
-mkd ()
-{
-  mkdir -p -- "$1" &&
-    cd -P -- "$1"
-}

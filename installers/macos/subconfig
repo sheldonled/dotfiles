@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+echo $DOTFILES/subconfig/
+
+if [ -z "$(find .dotfiles/subconfig -type d -depth 1)" ]; then
+  echo "No subconfig found"
+else
+  for f in $DOTFILES/subconfig/*
+  do
+    setup_file="$f/install/setup"
+    if [ ! -f $setup_file ]; then
+      echo "Ignoring $f because setup file was not found"
+      continue
+    fi
+    $setup_file
+  done
+fi

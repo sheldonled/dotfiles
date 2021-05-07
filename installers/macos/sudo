@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+sudo cp "$DOTFILES/lib/macos/sudo.tpl" /etc/pam.d/sudo

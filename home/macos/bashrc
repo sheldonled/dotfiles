@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+export DOTFILES=${HOME}/.dotfiles
+
+# Rebuild PATH
+if [ -x /usr/libexec/path_helper ]; then
+  PATH=""
+  eval `/usr/libexec/path_helper -s`
+fi
+
+# My env customization
+source "$DOTFILES/env/macos/index"

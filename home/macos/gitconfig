@@ -1,16 +1,29 @@
 [user]
   name = Sheldon Led
   email = sheldonled@gmail.com
+[init]
+  defaultBranch = main
 [core]
+  editor = `which $EDITOR`
   repositoryformatversion = 0
   filemode = false
   excludesfile = ~/.gitignore
-  whitespace = trailing-space,space-before-tab,cr-at-eol
+  whitespace = blank-at-eol,blank-at-eof,trailing-space,space-before-tab,cr-at-eol,tabwidth=2
   ignorecase = false
-[push]
-  default = current
+  pager = less --tabs=2 -RFX
+[commit]
+  template = ~/.gitmessage
+[fetch]
+  prune = true
+[remote "origin"]
+  prune = true
 [pull]
   rebase = true
+[merge]
+  ff = false
+  conflictstyle = diff3
+[push]
+  default = current
 [grep]
   extendRegexp = true
   lineNumber = true
@@ -26,16 +39,19 @@
 [color "diff"]
   old = red dim
   new = green bold
-[merge]
-  ff = false
-  conflictstyle = diff3
+[diff]
+  tool = vimdiff
 [log]
   date = format-local:"%F %R"
 [pretty]
   log = %C(red dim)%h %C(green)%cd %C(yellow)%an %C(reset)%C(white)%s %C(blue)%d
 [alias]
   lp = log --pretty=format:'%C(red dim)%h%Creset %C(yellow dim)%an%C(green) %cd%C(reset)%C(white) %s%Creset -%C(blue dim)%d%Creset'
+  branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
+  co = checkout
+  st = status
 [tag]
   sort = creatordate
 [rerere]
   enabled = true
+  autoupdate = true

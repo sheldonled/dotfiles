@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+HOME_FILES_PATH="$DOTFILES/home/macos";
+
+# Creating linked files
+for f in $HOME_FILES_PATH/*; do
+  filename="$(basename $f)"
+  target="$HOME/.$filename"
+
+  if [ -L $target ]; then
+    rm -rf $target
+  elif [ -f $target ];then
+    echo "$target already exists and is not a link"
+  fi
+
+  ln -sf $f $target
+done

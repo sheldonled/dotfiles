@@ -1,0 +1,41 @@
+# macos
+.DS_Store
+*darwin*
+
+# IDEs
+.vscode
+*.sw[nop]
+
+# Temp files
+*.dir
+*csv
+*~
+.benchmarking
+.directory
+.env*
+.svn
+tags
+tags.*
+
+# Node
+node_modules
+
+# sass
+.sass-cache
+
+# ruby/rails
+.bundle
+.byebug_history
+tmp/*
+log/*
+db/*.sqlite3
+vendor/bundle/*
+vendor/cache/*
+vendor/ruby/*
+
+# Compiled Python files
+*.pyc
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes

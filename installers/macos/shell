@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+export homebrew_prefix=${HOMEBREW_PREFIX:-/usr/local};
+
+# Customize my paths
+if [ -f "/etc/paths.original" ]; then
+  sudo mv /etc/paths{.original,}
+fi
+
+sudo cp /etc/paths /etc/paths.d/system;
+sudo mv /etc/paths{,.original};
+echo "${homebrew_prefix}/bin" | sudo tee /etc/paths.d/homebrew;
+echo "${homebrew_prefix}/sbin" | sudo tee -a /etc/paths.d/homebrew;
+
+# reset $PATH
+eval $(/usr/libexec/path_helper -s);
+
+# Make custom shells available
+if [ -f "/etc/shells.original" ]; then
+  sudo mv /etc/shells{.original,}
+fi
+
+sudo cp /etc/shells{,.original};
+
+[[ $(grep "${homebrew_prefix}/bin/bash" /etc/shells) ]] || \
+  echo "${homebrew_prefix}/bin/bash" | sudo tee -a /etc/shells
+
+[[ $(grep "${homebrew_prefix}/bin/zsh" /etc/shells) ]] || \
+  echo "${homebrew_prefix}/bin/zsh" | sudo tee -a /etc/shells
+
+# Zsh extras
+mkdir -p "$HOME/.zsh/themes"
+mkdir -p "$HOME/.zsh/plugins"
+
+# Install cobalt2 theme
+wget https://raw.githubusercontent.com/wesbos/Cobalt2-iterm/master/cobalt2.zsh-theme -P "$HOME/.zsh/themes/cobalt2"
+wget https://raw.githubusercontent.com/wesbos/Cobalt2-iterm/master/cobalt2.itermcolors -P "$HOME/.zsh/themes/cobalt2"
+wget https://raw.githubusercontent.com/wesbos/Cobalt2-iterm/master/.minttyrc -P "$HOME"
+
+# Install some plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/plugins/zsh-autosuggestions"
+git clone https://github.com/zsh-users/zsh-completions "$HOME/.zsh/plugins/zsh-completions"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting "$HOME/.zsh/plugins/zsh-syntax-highlighting"
