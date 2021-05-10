@@ -27,6 +27,11 @@ export PATH="./bin:$DOTFILES/bin:$PATH"
 # improve ls colors
 export CLICOLOR=1
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 source $DOTFILES/env/macos/aliases
 source $DOTFILES/env/macos/functions
 source $DOTFILES/env/macos/prompt
