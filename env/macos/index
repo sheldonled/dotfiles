@@ -21,16 +21,17 @@ source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 fpath=($HOME/.zsh/plugins/zsh-completions/src $fpath)
 
+# asdf
+source "${HOMEBREW_PREFIX}/opt/asdf/asdf.sh"
+
+# Ruby
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1 --with-readline-dir=/usr/local/opt/readline"
+
 # Home bin, and dotfiles bin
 export PATH="./bin:$DOTFILES/bin:$PATH"
 
 # improve ls colors
 export CLICOLOR=1
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 source $DOTFILES/env/macos/aliases
 source $DOTFILES/env/macos/functions
