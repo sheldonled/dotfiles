@@ -1,12 +1,13 @@
 #!/usr/bin/env zsh
+echo "$(gdate +"%T.%3N"): Initializing a new session"
 
 export DOTFILES=${HOME}/.dotfiles
 
-# Rebuild PATH
+echo "$(gdate +"%T.%3N"): Rebuilding PATH"
 if [ -x /usr/libexec/path_helper ]; then
   PATH=""
   eval `/usr/libexec/path_helper -s`
 fi
 
-# My env customization
-source "$DOTFILES/env/macos/index"
+echo "$(gdate +"%T.%3N"): Loading my env customization"
+source "$DOTFILES/env/macos"
