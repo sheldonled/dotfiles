@@ -1,4 +1,5 @@
 
 subconfig/*
 !subconfig/.gitkeep
-lib/macos/local_aliases
+env/env.d/macos.private/*
+!env/env.d/macos.private/.gitkeep
