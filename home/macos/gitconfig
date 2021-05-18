@@ -11,8 +11,6 @@
   whitespace = blank-at-eol,blank-at-eof,trailing-space,space-before-tab,cr-at-eol,tabwidth=2
   ignorecase = false
   pager = less --tabs=2 -RFX
-[commit]
-  template = ~/.gitmessage
 [fetch]
   prune = true
 [remote "origin"]
