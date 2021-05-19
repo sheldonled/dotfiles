@@ -39,4 +39,4 @@ for env in $DOTFILES/env/env.d/macos{,.private}/*; do
   source $env
 done
 
-reset
+clear
