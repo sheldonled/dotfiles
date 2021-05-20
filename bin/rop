@@ -8,4 +8,4 @@ if [ -z "$PORT" ]; then
 fi
 
 #sudo netstat -plten | grep $@ # i.e.: node
-sudo lsof -i tcp:$PORT
+sudo lsof -i :$PORT
