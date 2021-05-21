@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# not so intuitive name 😅 pop -> process [running] on port
+PORT="$1"
+
+if [ -z "$PORT" ]; then
+  echo "[pop -> process (running) on port] must specify the port number"
+  exit 0;
+fi
+
+sudo lsof -ti :$PORT
