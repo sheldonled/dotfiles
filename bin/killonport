@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+PORT="$1"
+
+if [ -z "$PORT" ]; then
+  echo "must specify the port number"
+  exit 0;
+fi
+
+pop $PORT| xargs kill -9
