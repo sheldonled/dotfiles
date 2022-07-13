@@ -2,9 +2,8 @@
 
 # System
 alias ls="ls -G -h"
-alias ll="ls -l"
+alias ll="ls -lah"
 alias la="ls -lA"
-alias lah="ls -lah"
 
 alias ..="cd .."
 alias ...="cd ../.."
