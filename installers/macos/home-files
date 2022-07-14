@@ -10,7 +10,8 @@ for f in $HOME_FILES_PATH/*; do
   if [ -L $target ]; then
     rm -rf $target
   elif [ -f $target ];then
-    echo "$target already exists and is not a link"
+    echo "$target already exists and is not a link, ignored"
+    continue
   fi
 
   ln -sf $f $target
