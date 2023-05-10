@@ -1,10 +1,19 @@
 echo "$(gdate +"%T.%3N"): Loading env variables"
-export HOMEBREW_PREFIX="$(brew --prefix 2>/dev/null)"
+
+export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_BOOTSNAP=1
+
+export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+
 export EDITOR='vim'
+
 # Home bin, dotfiles bin, and rancher desktop bin
-export PATH="./bin:$DOTFILES/bin:~/.rd/bin:$PATH"
+export PATH="./bin:$DOTFILES/bin:$HOME/.rd/bin:/opt/homebrew/opt:$PATH"
+
 # improve ls colors
 export CLICOLOR=1
 
@@ -31,8 +40,17 @@ source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 fpath=($HOME/.zsh/plugins/zsh-completions/src $fpath)
 
+#https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
+
 echo "$(gdate +"%T.%3N"): Loading asdf"
-source "${HOMEBREW_PREFIX}/opt/asdf/asdf.sh"
+source "${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh"
 
 # Source the other env files in env.d/macos
 for env in $DOTFILES/env/env.d/macos{,.private}/*; do
