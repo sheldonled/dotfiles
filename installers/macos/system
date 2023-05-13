@@ -222,10 +222,14 @@ defaults write com.apple.Safari AutoFillCreditCardData -bool false
 # Does not keep a process to check for chrome updates
 defaults write com.google.Keystone.Agent checkInterval 0
 
+# Remove swipe to go back
+defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+
 ######################################################
 
 # Kill affected applications
-for app in Finder Dock SystemUIServer Photos Messages 
+for app in Finder Dock SystemUIServer Photos Messages
 do
   killall "$app" >/dev/null 2>&1
 done
