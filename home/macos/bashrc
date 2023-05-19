@@ -9,4 +9,4 @@ if [ -x /usr/libexec/path_helper ]; then
 fi
 
 # My env customization
-source "$DOTFILES/env/macos/index"
+source "$DOTFILES/env/macos"
