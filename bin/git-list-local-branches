@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
+# This lists branches that were on remote and are now gone
+# To list untracked branches use `git branch --no-track`
 git branch -vv | grep ': gone]' | awk '{print $1}'
