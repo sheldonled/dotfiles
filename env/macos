@@ -41,17 +41,10 @@ source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 fpath=($HOME/.zsh/plugins/zsh-completions/src $fpath)
 
-#https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
-fi
-
-echo "$(gdate +"%T.%3N"): Loading asdf"
-source "${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh"
+# echo "$(gdate +"%T.%3N"): Loading asdf"
+# source "${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh"
+echo "$(gdate +"%T.%3N"): Loading mise"
+eval "$(~/.local/bin/mise activate zsh)"
 
 # Source the other env files in env.d/macos
 for env in $DOTFILES/env/env.d/macos{,.private}/*; do
