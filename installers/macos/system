@@ -141,13 +141,10 @@ sudo chflags nohidden /Volumes
 
 ##################### Menu Bar #######################
 
-# Show battery percentage
-defaults write com.apple.menuextra.battery ShowPercent -bool true
-# show battery  time
-defaults write com.apple.menuextra.battery ShowTime -bool true
-# Increase sound quality for Bluetooth headphones/headsets
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 # Set time to 24h format
+defaults delete com.apple.menuextra.clock
+
+defaults write NSGlobalDomain AppleICUForce24HourTime  -bool true
 defaults write com.apple.menuextra.clock DateFormat -string 'EEE MMM d  H:mm:ss'
 
 ##################### Sound ##########################
