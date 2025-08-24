@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Uninstall Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+
+# Remove Homebrew directory
+sudo rm -rf /opt/homebrew
+
+echo "Done. You will need to update your env files to remove homebrew from PATH" 
