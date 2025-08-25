@@ -1,19 +1,20 @@
 echo "$(gdate +"%T.%3N"): Loading env variables"
 
-export HOMEBREW_PREFIX="$(brew --prefix 2>/dev/null)"
-# export HOMEBREW_PREFIX="/opt/homebrew"
-# export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-# export HOMEBREW_REPOSITORY="/opt/homebrew"
+export HOMEBREW_PREFIX="/opt/homebrew";
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+export HOMEBREW_REPOSITORY="/opt/homebrew";
+
+fpath[1,0]="/opt/homebrew/share/zsh/site-functions";
+
+[ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}";
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_BOOTSNAP=1
-
-export MANPATH="${HOMEBREW_PREFIX}/share/man${MANPATH+:$MANPATH}:"
-export INFOPATH="${HOMEBREW_PREFIX}/share/info:${INFOPATH:-}"
 
 export EDITOR='vim'
 
 # Home bin, dotfiles bin, and rancher desktop bin
-export PATH="./bin:$DOTFILES/bin:$HOME/.rd/bin:/${HOMEBREW_PREFIX}/opt:$PATH"
+export PATH="./bin:$DOTFILES/bin:$HOME/.rd/bin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH"
 
 # improve ls colors
 export CLICOLOR=1
