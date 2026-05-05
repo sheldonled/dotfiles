@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+source $DOTFILES/lib/linux/distro-check
+
+printf "\n- Installing firefox\n\n";
+
+if command -v firefox >/dev/null 2>&1; then
+  echo "Firefox executable found. Exiting..."
+  exit 0
+fi
+
+# Installing Firefox
+# https://support.mozilla.org/en-US/kb/install-firefox-linux
+
+## Create a directory to store APT repository keys if it doesn't exist
+if ! -d /etc/apt/keyrings; then
+  sudo install -m 0755 -d /etc/apt/keyrings
+fi
+
+## Import the Mozilla APT repository signing key
+KEY_URL="https://packages.mozilla.org/apt/repo-signing-key.gpg"
+KEY_PATH="/etc/apt/keyrings/packages.mozilla.org.asc"
+
+### Download and save the key
+if wget -q "$KEY_URL" -O- | sudo tee "$KEY_PATH" > /dev/null; then
+  printf "Successfully downloaded and saved the Mozilla signing key to %s\n" "$KEY_PATH"
+else
+  printf "Error: Failed to download the Mozilla signing key.\n"
+  exit 1
+fi
+
+### Validate
+#### Capture the fingerprint from the ASCII key file
+FINGERPRINT=$(gpg -n -q --import --import-options import-show $KEY_PATH | awk '/pub/{getline; gsub(/^ +| +$/,""); print $0}')
+EXPECTED="35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3"
+
+if [ "$FINGERPRINT" = "$EXPECTED" ]; then
+  printf "\nThe key fingerprint matches (%s).\n\n" "$FINGERPRINT"
+else
+  printf "\nVerification failed: the fingerprint (%s) does not match the expected one.\n\n" "$FINGERPRINT"
+  exit 1
+fi
+
+## Add the Mozilla APT repository to your sources.list
+sudo tee /etc/apt/sources.list.d/mozilla.sources <<EOF
+Types: deb
+URIs: https://packages.mozilla.org/apt
+Suites: mozilla
+Components: main
+Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
+EOF
+
+## Configure APT to prioritize packages from the Mozilla repository
+sudo tee /etc/apt/preferences.d/mozilla <<EOF
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+EOF 
+
+sudo apt update
+sudo apt install firefox

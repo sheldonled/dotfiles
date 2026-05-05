@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+source $DOTFILES/lib/linux/distro-check
+
+printf "\n- Uninstalling docker\n\n";
+
+# Uninstalling Docker
+# https://docs.docker.com/engine/install/debian/#install-using-the-repository
+
+## Uninstall the Docker Engine, CLI, containerd, and Docker Compose packages
+sudo apt purge docker-ce docker-ce-cli containerd.io \
+  docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+
+## Delete all images, containers, and volumes
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd
+
+## Remove source list and keyrings
+sudo rm /etc/apt/sources.list.d/docker.sources
+sudo rm /etc/apt/keyrings/docker.asc

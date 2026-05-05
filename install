@@ -9,15 +9,17 @@ printf "Instalation located at $DOTFILES\n\n"
 if [ $(uname) = 'Darwin' ]; then
   echo "Mac OS detected"
   INSTALLERS_PATH="$DOTFILES/installers/macos"
+elif [ "$(uname -s)" = "Linux" ]; then
+  INSTALLERS_PATH="$DOTFILES/installers/linux"
 else
-  echo "Linux detected"
-  $DOTFILES/linux/setup;
-  exit 0;
+  echo "OS not supported."
+  echo "Aborting."
+  exit 1
 fi
 
 if [ -z $1 ]; then
   echo "Running all installers"
-  for installer in $(find "$INSTALLERS_PATH" -type file -depth 1 | sort); do
+  for installer in $(find "$INSTALLERS_PATH" -maxdepth 1 -type f | sort); do
     printf "\n\n>>> Running: $installer\n"
     $installer
   done

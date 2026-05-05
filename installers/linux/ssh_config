@@ -1,7 +1,0 @@
-Host *
-  IdentityFile ~/.ssh/id_rsa
-
-Host github.com
-  Hostname github.com
-  IdentityFile ~/.ssh/custom_id_rsa
-  IdentitiesOnly yes

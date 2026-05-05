@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+source $DOTFILES/lib/linux/distro-check
+
+printf "\n- Installing docker\n\n";
+
+if command -v docker >/dev/null 2>&1; then
+  echo "Docker executable found. Exiting..."
+  exit 0
+fi
+
+# Installing Docker
+# https://docs.docker.com/engine/install/debian/#install-using-the-repository
+
+# Setup Docker apt repository 
+
+## Add Docker's official GPG key:
+if ! -d /etc/apt/keyrings; then
+  sudo install -m 0755 -d /etc/apt/keyrings
+fi
+
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+## Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/debian
+Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+# Update repositories
+sudo apt update
+
+# Install Docker
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Post-install actions
+# https://docs.docker.com/engine/install/linux-postinstall/
+
+## Give permissions to current user
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+## Configure Docker to start on boot with systemd
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service

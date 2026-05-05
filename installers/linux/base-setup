@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+source $DOTFILES/lib/linux/distro-check
+
+printf "\n- Installing base setup\n\n";
+
+mkdir -p "$HOME/.local/bin"
+
+$DOTFILES/bin/update-system
+
+apps=(
+  ca-certificates
+  conky-all
+  curl
+  fastfetch
+  fonts-powerline
+  git
+  htop
+  libfuse2t64
+  python3
+  wget
+)
+
+sudo apt install "${apps[@]}"

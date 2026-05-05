@@ -1,0 +1,16 @@
+# macos
+.DS_Store
+*darwin*
+
+# IDEs
+.vscode
+
+# Local files
+dist
+.env*
+node_modules
+
+# ruby/rails
+.bundle
+tmp/*
+log/*

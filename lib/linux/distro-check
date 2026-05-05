@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if ! grep -qi '^ID=debian' /etc/os-release; then
+  echo "Currently only supporting Debian."
+  echo "Aborting."
+  exit 1
+fi

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+SSH_HOME="$HOME/.ssh"
+
+# Create .ssh folder if it doesn't exist
+mkdir -p $SSH_HOME
+
+## Generate authentication key if it doesn't exist
+if [[ -f "$SSH_HOME/id_ed25519" && -f "$SSH_HOME/id_ed25519.pub" ]]; then
+  echo "Authentication key detected (id_ed25519)"
+else
+  echo "Authentication key not found, generating new"
+  ssh-keygen -t ed25519
+fi
+
+# link ssh config
+ln -sf "$DOTFILES/lib/shared/ssh_config" $SSH_HOME/config
+chmod -R 700 $SSH_HOME

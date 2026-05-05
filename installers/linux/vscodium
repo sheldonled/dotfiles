@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Install VSCodium
+
+printf "\n- Installing VSCodium\n\n";
+
+source $DOTFILES/lib/linux/distro-check
+
+set -e # Exit on error
+
+echo "🔍 Detecting system architecture..."
+ARCH=$(dpkg --print-architecture)
+case "$ARCH" in
+    amd64) FILE_PATTERN="amd64.deb" ;;
+    arm64) FILE_PATTERN="arm64.deb" ;;
+    *) echo "❌ Unsupported architecture: $ARCH"; exit 1 ;;
+esac
+
+echo "🌐 Fetching latest release info from GitHub..."
+# Get the download URL for the .deb file that matches the system architecture
+DOWNLOAD_URL=$(curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest \
+    | grep "browser_download_url.*$FILE_PATTERN" \
+    | grep -vE "\.sha1|\.sha256" \
+    | cut -d '"' -f 4)
+
+if [ -z "$DOWNLOAD_URL" ]; then
+    echo "❌ Could not find a valid .deb download URL."
+    exit 1
+fi
+
+URL_COUNT=$(echo "$DOWNLOAD_URL" | wc -l)
+if [ "$URL_COUNT" -ne 1 ] || [ -z "$DOWNLOAD_URL" ]; then
+    echo "❌ Error: Expected 1 URL but found $URL_COUNT. Check your internet or architecture."
+    echo "Found: $DOWNLOAD_URL"
+    exit 1
+fi
+
+TEMP_DEB="/tmp/vscodium_latest.deb"
+
+echo "📥 Downloading VSCodium..."
+echo $DOWNLOAD_URL
+curl -L "$DOWNLOAD_URL" -o "$TEMP_DEB"
+
+echo "📦 Installing VSCodium (requires sudo)..."
+sudo apt update
+sudo apt install -y "$TEMP_DEB"
+
+echo "🧹 Cleaning up..."
+rm "$TEMP_DEB"
+
+# Link configuratio file
+ln -sf $DOTFILES/lib/shared/vscodesettings.json $HOME/config/VSCodium/User/settings.json
+
+echo "----------------------------------------------------"
+echo "✅ VSCodium has been installed successfully!"
+echo "🚀 You can launch it by typing 'codium' in your terminal."

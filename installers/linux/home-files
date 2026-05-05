@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+HOME_FILES_PATH="$DOTFILES/home/linux";
+
+# Create linked files
+for f in ${HOME_FILES_PATH}/*; do
+  filename="$(basename $f)"
+  target="$HOME/.$filename"
+
+  if [ -L $target ]; then
+    rm $target
+  elif [ -f $target ];then
+    echo "$target already exists and is not a link, ignored"
+    continue
+  fi
+
+  ln -sf $f $target
+done

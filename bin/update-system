@@ -4,12 +4,13 @@ if [ $(uname) = 'Darwin' ]; then
   sudo softwareupdate -i -a
   $(dirname $0)/upgrade-brew
 
-else #Linux
-  sudo apt-get update
-  sudo apt-get upgrade
-  sudo apt-get dist-upgrade
-  npm update -g
+elif grep -qi '^ID=debian' /etc/os-release; then
+  sudo apt update
+  sudo apt upgrade
+  sudo apt dist-upgrade
 
+else
+  echo "OS not supported."
+  echo "Aborting."
+  exit 1
 fi
-
-exit 0;

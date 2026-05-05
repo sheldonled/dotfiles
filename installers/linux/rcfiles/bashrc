@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-export DOTFILES=${HOME}/.dotfiles
-
-# My env customization env
-source "$DOTFILES/lib/linux/env"
